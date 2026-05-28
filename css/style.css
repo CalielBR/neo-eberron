@@ -1989,14 +1989,17 @@ body:has(#page-mapa.active) .page-scroll-fixed {
 
   .nav-tab {
     writing-mode: horizontal-tb;
-    padding: 10px 2px;
-    font-size: 0.58rem; /* Ajuste sutil para nomes longos caberem */
+    padding: 12px 2px;
+    font-size: 0.62rem;
     border-left: none;
-    border-top: 2px solid rgba(184, 115, 51, 0.3);
+    border: 1px solid #ffffff; /* Contorno branco solicitado */
+    margin: 2px;
+    border-radius: 4px;
+    color: #ffffff; /* Texto branco para leitura firme */
+    font-weight: 700;
     flex: 1;
     min-width: 0; /* Permite que o flex-item encolha o quanto for necessário */
     text-align: center;
-    border-radius: 0;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -2007,12 +2010,14 @@ body:has(#page-mapa.active) .page-scroll-fixed {
 
   .nav-tab:hover {
     transform: translateY(-4px);
-    border-top: 2px solid var(--gold-light); /* Cor da borda hover para mobile */
+    border-color: var(--gold-light);
   }
 
   .nav-tab.active {
     transform: translateY(-4px);
-    border-top: 2px solid #c03050; /* Cor da borda ativa para mobile */
+    border-color: #c03050; /* Contorno bordeaux quando ativo */
+    background: linear-gradient(180deg, #6d071a, #a02040);
+    color: #ffffff;
   }
 
   /* -- Map: taller viewport, edge-to-edge -- */
