@@ -1808,10 +1808,14 @@ body:has(#page-mapa.active) .page-scroll-fixed {
 }
 
 /* ════════════════════════════════════════════════════════════
-   21. RESPONSIVE — MOBILE  (max-width: 768px)
+   21. RESPONSIVE — SMARTPHONE
+       Alvo: Poco F5 e similares (viewport CSS ~360–430px)
+       Resolução física: 1080×2400 · DPR ~2.75 · 6.67"
+       Breakpoint: max-width: 599px
    ════════════════════════════════════════════════════════════ */
-@media (max-width: 768px) {
-  /* -- Layout: full-width, no spine -- */
+@media (max-width: 599px) {
+
+  /* ── Layout base: tela cheia, sem lombada ── */
   .book-wrapper {
     padding: 0;
     max-width: 100vw;
@@ -1824,18 +1828,21 @@ body:has(#page-mapa.active) .page-scroll-fixed {
   }
 
   .book-cover::before {
-    display: none; /* hide spine — wastes width on mobile */
+    display: none; /* Lombada escondida — ocupa espaço precioso no celular */
   }
 
-  /* Padding-right reserva espaço para as abas de nav laterais (~58px) */
+  /*
+   * Padding-right: reserva 58px para as abas de navegação laterais.
+   * Padding-left: 14px — respira sem desperdiçar largura.
+   * Padding-bottom: 24px — conteúdo não fica colado ao rodapé.
+   */
   .page-inner {
     margin-left: 0;
-    padding: 0 64px 40px 16px;
+    padding: 0 58px 24px 14px;
     width: 100%;
   }
 
-  /* -- Navigation: lateral direita, igual ao desktop -- */
-  /* Mantém o comportamento padrão da .nav-tabs (fixed, right:0, top:50%) */
+  /* ── Navegação: abas verticais fixas na lateral direita ── */
   .nav-tabs {
     position: fixed;
     right: 0;
@@ -1843,9 +1850,8 @@ body:has(#page-mapa.active) .page-scroll-fixed {
     transform: translateY(-50%);
     display: flex;
     flex-direction: column;
-    gap: 4px;
+    gap: 3px;
     z-index: 100;
-    /* Remove qualquer override de bottom-bar que possa ter sido herdado */
     left: auto;
     bottom: auto;
     background: none;
@@ -1856,10 +1862,10 @@ body:has(#page-mapa.active) .page-scroll-fixed {
   }
 
   .nav-tab {
-    /* Mantém o estilo vertical idêntico ao desktop */
     writing-mode: vertical-lr;
-    padding: 12px 14px 12px 10px;
-    font-size: 0.6rem;
+    padding: 10px 12px 10px 8px;
+    font-size: 0.55rem;           /* levemente menor para caber bem */
+    letter-spacing: 0.07em;
     border-left: 2px solid rgba(184, 115, 51, 0.4);
     border-top: none;
     border-right: none;
@@ -1869,51 +1875,41 @@ body:has(#page-mapa.active) .page-scroll-fixed {
     color: var(--copper-light);
     font-weight: 600;
     flex: none;
-    min-width: unset;
-    text-align: unset;
     white-space: nowrap;
-    overflow: visible;
-    text-overflow: unset;
     display: block;
     background: linear-gradient(90deg, #0d0700 0%, #1a0f00 100%);
     box-shadow:
       -2px 2px 6px rgba(0, 0, 0, 0.6),
       inset 1px 0 3px rgba(255, 255, 255, 0.15);
+    transition: all 0.25s ease;
   }
 
   .nav-tab:hover {
     background: linear-gradient(90deg, var(--gold) 0%, var(--copper-shine) 100%);
-    transform: translateX(-6px);
+    transform: translateX(-5px);
     color: var(--ink);
-    border-left: 2px solid var(--gold-light);
-    box-shadow:
-      -6px 2px 16px rgba(0, 0, 0, 0.5),
-      inset 1px 0 4px rgba(255, 255, 255, 0.3);
+    border-left-color: var(--gold-light);
   }
 
   .nav-tab.active {
     background: linear-gradient(90deg, #6d071a 0%, #a02040 100%);
-    transform: translateX(-6px);
+    transform: translateX(-5px);
     color: var(--parchment);
-    border-left: 2px solid #c03050;
-    box-shadow:
-      -6px 2px 16px rgba(0, 0, 0, 0.5),
-      inset 1px 0 4px rgba(255, 255, 255, 0.3);
+    border-left-color: #c03050;
   }
 
-  /* -- Header: compact strip with logo + subtitle -- */
+  /* ── Cabeçalho: faixa compacta com logo + rótulo de campanha ── */
   .site-header {
-    padding: 10px 0 12px 0;
+    padding: 8px 0 10px 0;
     border-bottom: 1px solid rgba(184, 115, 51, 0.3);
-    margin-bottom: 20px;
+    margin-bottom: 18px;
     display: flex;
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 6px;
+    gap: 5px;
   }
 
-  /* Hide desktop-only header elements */
   .site-header .chapter-stamp,
   .site-header .site-title,
   .site-header .site-subtitle,
@@ -1921,19 +1917,17 @@ body:has(#page-mapa.active) .page-scroll-fixed {
     display: none;
   }
 
-  /* Show campaign label under logo on mobile */
   .site-campaign-label {
     display: block;
     text-align: center;
-    font-size: 0.6rem;
-    letter-spacing: 0.14em;
+    font-size: 0.55rem;
+    letter-spacing: 0.13em;
     color: #000000;
     margin: 0;
     font-weight: 900;
     line-height: 1.3;
   }
 
-  /* Classe utilitária para engrenagens individuais */
   .moving-gear {
     display: inline-block;
     animation: slowRotate 12s linear infinite;
@@ -1941,59 +1935,157 @@ body:has(#page-mapa.active) .page-scroll-fixed {
     line-height: 1;
   }
 
-  /* Logo: single line, scaled for mobile */
   .neogenesis-logo-wrap {
-    margin-bottom: 4px;
+    margin-bottom: 3px;
   }
 
   .neogenesis-logo {
-    padding: 8px 18px 7px;
-    clip-path: polygon(8px 0%, 100% 0%, calc(100% - 8px) 100%, 0% 100%);
+    padding: 7px 16px 6px;
+    clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
   }
 
   .neo-text {
-    font-size: clamp(1rem, 5vw, 1.3rem);
-    letter-spacing: 0.14em;
-    white-space: nowrap; /* must stay on one line */
+    font-size: clamp(0.85rem, 4.2vw, 1.1rem);
+    letter-spacing: 0.12em;
+    white-space: nowrap;
   }
 
-  /* -- Footer: compact row -- */
+  /* ── Títulos de capítulo ── */
+  .chapter-title {
+    font-size: clamp(1.3rem, 6vw, 1.6rem);
+  }
+
+  /* ── Drop cap menor no celular ── */
+  .drop-cap::first-letter {
+    font-size: 3.6em;
+  }
+
+  /* ── Blockquotes ── */
+  blockquote {
+    margin: 20px 0;
+  }
+
+  /* ── Localidades: coluna única ── */
+  .location-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* ── Página de contato ── */
+  .contact-scroll {
+    padding: 38px 10px 18px;
+    margin: 55px 0 18px;
+  }
+
+  .contact-scroll::before,
+  .contact-scroll::after {
+    top: -48px;
+    font-size: 38px;
+  }
+
+  /* Cards de contato: ícone à esquerda, label+valor empilhados à direita */
+  .contact-info-line {
+    display: grid;
+    grid-template-columns: 40px 1fr;
+    grid-template-rows: auto auto;
+    align-items: start;
+    gap: 2px 10px;
+    padding: 12px;
+    overflow: visible;
+  }
+
+  .contact-info-line::after {
+    font-size: 1.2rem;
+    top: -10px;
+  }
+
+  .contact-icon {
+    grid-column: 1;
+    grid-row: 1 / 3;
+    width: 36px;
+    height: 36px;
+    align-self: center;
+  }
+
+  .contact-label {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    font-size: 0.58rem;
+    letter-spacing: 0.16em;
+  }
+
+  .contact-value {
+    grid-column: 2;
+    grid-row: 2;
+    min-width: 0;
+    font-size: 0.9rem;
+    word-break: break-all;
+    overflow-wrap: break-word;
+  }
+
+  /* ── Mapa: viewport alta, borda a borda ── */
+  .map-outer {
+    margin: 18px -14px;
+  }
+
+  .map-viewport {
+    height: 85vh;
+  }
+
+  .map-controls {
+    flex-direction: row;
+    flex-wrap: wrap;
+    top: 8px;
+    left: 8px;
+    gap: 5px;
+  }
+
+  .map-popup {
+    width: calc(100% - 24px);
+    right: 12px;
+    bottom: 12px;
+  }
+
+  .map-scale-hint {
+    display: none;
+  }
+
+  /* ── Rodapé ── */
   .site-footer {
-    margin-top: 8px;
-    padding: 8px 0 10px 0;
+    margin-top: 6px;
+    padding: 6px 0 8px 0;
   }
 
   .footer-quote-wrap {
     max-width: 100%;
-    padding: 0 12px;
-    margin-bottom: 16px;
+    padding: 0 10px;
+    margin-bottom: 12px;
   }
 
   .footer-quote {
-    padding: 16px 20px;
-    gap: 8px;
+    padding: 14px 18px;
+    gap: 7px;
     border-width: 1.5px;
     box-shadow:
-      0 6px 15px rgba(0, 0, 0, 0.5),
-      inset 0 0 10px rgba(0, 0, 0, 0.8);
+      0 5px 12px rgba(0, 0, 0, 0.5),
+      inset 0 0 8px rgba(0, 0, 0, 0.8);
   }
 
   .footer-quote-text {
-    font-size: clamp(0.8rem, 3.5vw, 0.95rem);
+    font-size: clamp(0.75rem, 3.2vw, 0.9rem);
     line-height: 1.7;
   }
 
   .footer-quote-cite {
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
+    font-size: 0.52rem;
+    letter-spacing: 0.18em;
   }
 
   .footer-quote-ornament {
-    font-size: 0.75rem;
+    font-size: 0.7rem;
     opacity: 0.6;
   }
 
-  /* Acelera o giro de 10s para 5s no mobile */
   .footer-quote-ornament:first-of-type,
   .footer-quote-ornament:last-child {
     animation-duration: 5s;
@@ -2002,8 +2094,315 @@ body:has(#page-mapa.active) .page-scroll-fixed {
   .footer-seal {
     flex-direction: column;
     align-items: center;
-    justify-content: center;
-    gap: 4px;
+    gap: 3px;
+  }
+
+  .neogenesis-logo-wrap--footer {
+    margin-bottom: 1px;
+  }
+
+  .neogenesis-logo--footer {
+    padding: 5px 13px 4px;
+    clip-path: polygon(5px 0%, 100% 0%, calc(100% - 5px) 100%, 0% 100%);
+  }
+
+  .neogenesis-logo--footer .neo-text {
+    font-size: clamp(0.58rem, 2.8vw, 0.75rem);
+    letter-spacing: 0.13em;
+    white-space: nowrap;
+  }
+
+  .footer-text {
+    font-size: 0.54rem;
+    letter-spacing: 0.09em;
+    color: #1a0f00;
+    margin-top: 0;
+  }
+
+  .footer-text + .footer-text,
+  .footer-text--copy {
+    display: none;
+  }
+}
+
+/* ════════════════════════════════════════════════════════════
+   22. RESPONSIVE — TABLET
+       Alvo: Samsung Galaxy Tab S6 e superiores (viewport CSS ~800–1024px)
+       Resolução física: 2560×1600 · DPR 2.0 · 10.5"
+       Breakpoint: 600px–1023px (portrait e landscape)
+   ════════════════════════════════════════════════════════════ */
+@media (min-width: 600px) and (max-width: 1023px) {
+
+  /* ── Layout: sem lombada, aproveitando toda a largura ── */
+  .book-wrapper {
+    padding: 0;
+    max-width: 100vw;
+  }
+
+  .book-cover {
+    border-radius: 0 8px 8px 0;
+    width: 100vw;
+  }
+
+  .book-cover::before {
+    display: none; /* Lombada oculta — usaremos margem interna */
+  }
+
+  /*
+   * Padding generoso para um tablet de 10.5".
+   * Direita: 72px reserva espaço para as abas de nav laterais.
+   * Horizontal: 36px — respira como leitura de livro.
+   */
+  .page-inner {
+    margin-left: 0;
+    padding: 24px 72px 48px 36px;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  /* ── Navegação: abas laterais maiores no tablet ── */
+  .nav-tabs {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+    z-index: 100;
+    left: auto;
+    bottom: auto;
+    background: none;
+    border-top: none;
+    padding: 0;
+    box-shadow: none;
+    width: auto;
+  }
+
+  .nav-tab {
+    writing-mode: vertical-lr;
+    padding: 14px 16px 14px 12px;
+    font-size: 0.68rem;           /* maior que no smartphone */
+    letter-spacing: 0.09em;
+    border-left: 2px solid rgba(184, 115, 51, 0.4);
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    margin: 0;
+    border-radius: 5px 0 0 5px;
+    color: var(--copper-light);
+    font-weight: 600;
+    flex: none;
+    white-space: nowrap;
+    display: block;
+    background: linear-gradient(90deg, #0d0700 0%, #1a0f00 100%);
+    box-shadow:
+      -3px 2px 8px rgba(0, 0, 0, 0.6),
+      inset 1px 0 3px rgba(255, 255, 255, 0.15);
+    transition: all 0.25s ease;
+  }
+
+  .nav-tab:hover {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--copper-shine) 100%);
+    transform: translateX(-8px);
+    color: var(--ink);
+    border-left-color: var(--gold-light);
+    box-shadow:
+      -8px 2px 18px rgba(0, 0, 0, 0.5),
+      inset 1px 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .nav-tab.active {
+    background: linear-gradient(90deg, #6d071a 0%, #a02040 100%);
+    transform: translateX(-8px);
+    color: var(--parchment);
+    border-left-color: #c03050;
+    box-shadow:
+      -8px 2px 18px rgba(0, 0, 0, 0.5),
+      inset 1px 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  /* ── Cabeçalho: versão intermediária — exibe título mas compacto ── */
+  .site-header {
+    padding: 16px 0 20px 0;
+    border-bottom: 1px solid rgba(184, 115, 51, 0.3);
+    margin-bottom: 28px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 8px;
+  }
+
+  /* No tablet mostramos o título principal, mas não o chapter-stamp */
+  .site-header .chapter-stamp {
+    display: none;
+  }
+
+  .site-header .site-title {
+    display: block;
+    font-size: clamp(2.2rem, 5vw, 3.5rem);
+  }
+
+  .site-header .site-subtitle {
+    display: block;
+    font-size: clamp(0.8rem, 1.6vw, 1rem);
+  }
+
+  .site-header .header-ornament {
+    display: block;
+  }
+
+  .site-campaign-label {
+    display: block;
+    text-align: center;
+    font-size: 0.68rem;
+    letter-spacing: 0.15em;
+    color: #1a0f00;
+    font-weight: 700;
+  }
+
+  .moving-gear {
+    display: inline-block;
+    animation: slowRotate 12s linear infinite;
+    will-change: transform;
+    line-height: 1;
+  }
+
+  .neogenesis-logo-wrap {
+    margin-bottom: 6px;
+  }
+
+  .neogenesis-logo {
+    padding: 10px 22px 9px;
+    clip-path: polygon(10px 0%, 100% 0%, calc(100% - 10px) 100%, 0% 100%);
+  }
+
+  .neo-text {
+    font-size: clamp(1.2rem, 2.8vw, 1.6rem);
+    letter-spacing: 0.18em;
+    white-space: nowrap;
+  }
+
+  /* ── Tipografia: escala intermediária para 10.5" ── */
+  .chapter-title {
+    font-size: clamp(1.6rem, 3.5vw, 2.2rem);
+  }
+
+  .drop-cap::first-letter {
+    font-size: 5em;
+  }
+
+  /* ── Grid de localidades: 2 colunas no tablet ── */
+  .location-grid {
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+
+  /* ── Contato: cards com espaço confortável ── */
+  .contact-scroll {
+    padding: 50px 30px 30px;
+    margin: 70px 10px 30px;
+  }
+
+  .contact-scroll::before,
+  .contact-scroll::after {
+    top: -60px;
+    font-size: 48px;
+  }
+
+  /* Cards de contato: layout em linha horizontal no tablet */
+  .contact-info-line {
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 16px 22px;
+  }
+
+  .contact-icon {
+    width: 48px;
+    height: 48px;
+  }
+
+  .contact-label {
+    font-size: 0.68rem;
+    letter-spacing: 0.2em;
+    min-width: 90px;
+  }
+
+  .contact-value {
+    font-size: 1.05rem;
+    word-break: normal;
+    overflow-wrap: normal;
+  }
+
+  .contact-info-line::after {
+    font-size: 2rem;
+    top: -16px;
+  }
+
+  /* ── Mapa ── */
+  .map-outer {
+    margin: 24px -20px;
+  }
+
+  .map-viewport {
+    height: 80vh;
+  }
+
+  .map-controls {
+    flex-direction: column;
+    top: 20px;
+    left: 16px;
+    gap: 5px;
+  }
+
+  .map-scale-hint {
+    display: block;
+    font-size: 0.5rem;
+  }
+
+  .map-popup {
+    width: 280px;
+    right: 20px;
+    bottom: 20px;
+  }
+
+  /* ── Rodapé ── */
+  .site-footer {
+    margin-top: 16px;
+    padding: 12px 0 16px 0;
+  }
+
+  .footer-quote-wrap {
+    max-width: 680px;
+    padding: 0 20px;
+    margin-bottom: 20px;
+  }
+
+  .footer-quote {
+    padding: 20px 50px;
+    gap: 10px;
+  }
+
+  .footer-quote-text {
+    font-size: clamp(0.85rem, 1.8vw, 1rem);
+    line-height: 1.8;
+  }
+
+  .footer-quote-cite {
+    font-size: 0.6rem;
+    letter-spacing: 0.22em;
+  }
+
+  .footer-quote-ornament {
+    font-size: 2.2rem;
+    opacity: 0.3;
+  }
+
+  .footer-seal {
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
   }
 
   .neogenesis-logo-wrap--footer {
@@ -2011,111 +2410,28 @@ body:has(#page-mapa.active) .page-scroll-fixed {
   }
 
   .neogenesis-logo--footer {
-    padding: 6px 15px 5px;
-    clip-path: polygon(6px 0%, 100% 0%, calc(100% - 6px) 100%, 0% 100%);
+    padding: 7px 16px 6px;
+    clip-path: polygon(7px 0%, 100% 0%, calc(100% - 7px) 100%, 0% 100%);
   }
 
   .neogenesis-logo--footer .neo-text {
-    font-size: clamp(0.65rem, 3.5vw, 0.82rem);
-    letter-spacing: 0.16em;
+    font-size: clamp(0.7rem, 1.5vw, 0.9rem);
+    letter-spacing: 0.18em;
     white-space: nowrap;
   }
 
   .footer-text {
-    font-size: 0.56rem;
-    letter-spacing: 0.1em;
+    font-size: 0.6rem;
+    letter-spacing: 0.12em;
     color: #1a0f00;
-    margin-top: 0;
   }
 
-  /* Hide secondary copyright line on mobile */
-  .footer-text + .footer-text,
+  /* Mostra copyright no tablet (tela grande o suficiente) */
   .footer-text--copy {
-    display: none;
-  }
-
-  /* -- Map: taller viewport, edge-to-edge -- */
-  .map-outer {
-    margin: 20px -16px;
-  }
-
-  .map-viewport {
-    height: 88vh;
-  }
-
-  .map-controls {
-    flex-direction: row;
-    flex-wrap: wrap;
-    top: 10px;
-    left: 10px;
-    gap: 6px;
-  }
-
-  .map-popup {
-    width: calc(100% - 28px);
-    right: 14px;
-    bottom: 14px;
-  }
-
-  .map-scale-hint {
-    display: none;
-  }
-
-  /* -- Miscellaneous -- */
-  .location-grid {
-    grid-template-columns: 1fr;
-  }
-
-  .drop-cap::first-letter {
-    font-size: 4em;
-  }
-
-  .contact-scroll {
-    padding: 40px 15px 20px;
-    margin-top: 60px;
-  }
-
-  .contact-icon {
-    width: 40px;
-    height: 40px;
-  }
-
-  .contact-info-line::after {
-    font-size: 1.3rem;
-    top: -10px;
-  }
-
-  .contact-scroll::before,
-  .contact-scroll::after {
-    top: -50px;
-    font-size: 40px;
+    display: block;
   }
 
   blockquote {
-    margin: 24px 0;
-  }
-}
-
-/* ════════════════════════════════════════════════════════════
-   22. RESPONSIVE — SMALL MOBILE  (max-width: 480px)
-   ════════════════════════════════════════════════════════════ */
-@media (max-width: 480px) {
-  .chapter-title {
-    font-size: 1.5rem;
-  }
-
-  /* Mantém espaço para as abas laterais de nav mesmo em telas pequenas */
-  .page-inner {
-    padding: 0 60px 32px 12px;
-  }
-
-  .neo-text {
-    font-size: clamp(0.88rem, 4.5vw, 1.1rem);
-    letter-spacing: 0.1em;
-  }
-
-  .neogenesis-logo--footer .neo-text {
-    font-size: clamp(0.6rem, 3vw, 0.75rem);
-    letter-spacing: 0.12em;
+    margin: 28px 0;
   }
 }
