@@ -1827,10 +1827,78 @@ body:has(#page-mapa.active) .page-scroll-fixed {
     display: none; /* hide spine — wastes width on mobile */
   }
 
+  /* Padding-right reserva espaço para as abas de nav laterais (~58px) */
   .page-inner {
     margin-left: 0;
-    padding: 0 16px 110px 16px;
+    padding: 0 64px 40px 16px;
     width: 100%;
+  }
+
+  /* -- Navigation: lateral direita, igual ao desktop -- */
+  /* Mantém o comportamento padrão da .nav-tabs (fixed, right:0, top:50%) */
+  .nav-tabs {
+    position: fixed;
+    right: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    z-index: 100;
+    /* Remove qualquer override de bottom-bar que possa ter sido herdado */
+    left: auto;
+    bottom: auto;
+    background: none;
+    border-top: none;
+    padding: 0;
+    box-shadow: none;
+    width: auto;
+  }
+
+  .nav-tab {
+    /* Mantém o estilo vertical idêntico ao desktop */
+    writing-mode: vertical-lr;
+    padding: 12px 14px 12px 10px;
+    font-size: 0.6rem;
+    border-left: 2px solid rgba(184, 115, 51, 0.4);
+    border-top: none;
+    border-right: none;
+    border-bottom: none;
+    margin: 0;
+    border-radius: 4px 0 0 4px;
+    color: var(--copper-light);
+    font-weight: 600;
+    flex: none;
+    min-width: unset;
+    text-align: unset;
+    white-space: nowrap;
+    overflow: visible;
+    text-overflow: unset;
+    display: block;
+    background: linear-gradient(90deg, #0d0700 0%, #1a0f00 100%);
+    box-shadow:
+      -2px 2px 6px rgba(0, 0, 0, 0.6),
+      inset 1px 0 3px rgba(255, 255, 255, 0.15);
+  }
+
+  .nav-tab:hover {
+    background: linear-gradient(90deg, var(--gold) 0%, var(--copper-shine) 100%);
+    transform: translateX(-6px);
+    color: var(--ink);
+    border-left: 2px solid var(--gold-light);
+    box-shadow:
+      -6px 2px 16px rgba(0, 0, 0, 0.5),
+      inset 1px 0 4px rgba(255, 255, 255, 0.3);
+  }
+
+  .nav-tab.active {
+    background: linear-gradient(90deg, #6d071a 0%, #a02040 100%);
+    transform: translateX(-6px);
+    color: var(--parchment);
+    border-left: 2px solid #c03050;
+    box-shadow:
+      -6px 2px 16px rgba(0, 0, 0, 0.5),
+      inset 1px 0 4px rgba(255, 255, 255, 0.3);
   }
 
   /* -- Header: compact strip with logo + subtitle -- */
@@ -1922,7 +1990,7 @@ body:has(#page-mapa.active) .page-scroll-fixed {
 
   .footer-quote-ornament {
     font-size: 0.75rem;
-    opacity: 0.6; /* Aumenta um pouco a visibilidade no mobile */
+    opacity: 0.6;
   }
 
   /* Acelera o giro de 10s para 5s no mobile */
@@ -1964,60 +2032,6 @@ body:has(#page-mapa.active) .page-scroll-fixed {
   .footer-text + .footer-text,
   .footer-text--copy {
     display: none;
-  }
-
-  /* -- Navigation: bottom bar -- */
-  .nav-tabs {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    top: auto;
-    transform: none;
-    display: flex;
-    flex-direction: row;
-    flex-wrap: nowrap; /* Impede que os botões pulem para a linha de baixo */
-    background: linear-gradient(180deg, #1a0d02, #0d0700);
-    border-top: 2px solid var(--copper);
-    justify-content: center;
-    /* Adiciona espaço extra para não ficar atrás da barra de navegação do Pocophone */
-    padding: 6px 0 calc(8px + env(safe-area-inset-bottom, 12px));
-    box-shadow: 0 -5px 25px rgba(0, 0, 0, 0.8);
-    z-index: 9999; /* Garante que fique acima de tudo */
-    width: 100%;
-  }
-
-  .nav-tab {
-    writing-mode: horizontal-tb;
-    padding: 12px 2px;
-    font-size: 0.62rem;
-    border-left: none;
-    border: 1px solid #ffffff; /* Contorno branco solicitado */
-    margin: 2px;
-    border-radius: 4px;
-    color: #ffffff; /* Texto branco para leitura firme */
-    font-weight: 700;
-    flex: 1;
-    min-width: 0; /* Permite que o flex-item encolha o quanto for necessário */
-    text-align: center;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    white-space: nowrap; /* Mantém o texto em uma linha única */
-    overflow: hidden;
-    text-overflow: ellipsis; /* Se o nome for grande demais, ele coloca "..." em vez de quebrar o layout */
-  }
-
-  .nav-tab:hover {
-    transform: translateY(-4px);
-    border-color: var(--gold-light);
-  }
-
-  .nav-tab.active {
-    transform: translateY(-4px);
-    border-color: #c03050; /* Contorno bordeaux quando ativo */
-    background: linear-gradient(180deg, #6d071a, #a02040);
-    color: #ffffff;
   }
 
   /* -- Map: taller viewport, edge-to-edge -- */
@@ -2090,8 +2104,9 @@ body:has(#page-mapa.active) .page-scroll-fixed {
     font-size: 1.5rem;
   }
 
+  /* Mantém espaço para as abas laterais de nav mesmo em telas pequenas */
   .page-inner {
-    padding: 0 12px 90px 12px;
+    padding: 0 60px 32px 12px;
   }
 
   .neo-text {
